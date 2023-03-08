@@ -47,6 +47,7 @@
   <div class="form-group row mt-5">
     <div class="offset-4 col-8">
       <button name="submit" type="submit" class="btn btn-primary col-md-3">Save</button>
+      <button name="reset" type="reset" class="btn btn-danger col-md-3">Reset</button>
     </div>
   </div>
 </form>		</div>
