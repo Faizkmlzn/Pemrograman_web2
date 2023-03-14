@@ -1,4 +1,26 @@
-<?php require_once "proses_registrasi.php"; ?>
+
+<?php
+    $domisili = ["Jakarta", "Bogor", "Depok", "Tangerang", "Bekasi"];
+
+    $prodi = [
+        "SI"=>"Sistem Informasi",
+        "TI"=>"Teknik Iformatika",
+        "BD"=>"Bisnis Digital"
+    ];
+
+    $skills = [
+        "HTML"=>10,
+        "CSS"=>10,
+        "JavaScript"=>20,
+        "RWD Bootstrap"=>20,
+        "PHP"=>30,
+        "Python"=>30,
+        "Java"=>50,
+        "-"=>0
+    ];
+
+    
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +35,7 @@
 <body>
     <div class="container">
         <h2 class="text-center" style="margin-bottom: 5%; margin-top: 5%;">Form Registrasi</h2>
-        <form action="form_registrasi.php" method="POST">
+        <form action="tugas2.php" method="POST">
         <div class="form-group row">
             <label for="nim" class="col-4 col-form-label">NIM</label> 
             <div class="col-8">
@@ -68,24 +90,24 @@
         <div class="form-group row">
             <label class="col-4">Skill Programming</label> 
             <div class="col-8">
-            <?php foreach($skills as $key => $value) { ?> 
+            <?php foreach($skills as $kode => $hasil) { ?> 
             <div class="custom-control custom-checkbox custom-control-inline">
-                <input name="skill[]" id="<?= $key; ?>" type="checkbox" class="custom-control-input" value="<?= $key; ?>">
-                <label for="<?= $key; ?>" class="custom-control-label"><?= $key; ?></label>
+                <input name="skill[]" id="<?= $kode; ?>" type="checkbox" class="custom-control-input" value="<?= $kode; ?>">
+                <label for="<?= $kode; ?>" class="custom-control-label"><?= $kode; ?></label>
             </div>
             <?php } ?>
             </div>
         </div> 
         <div class="form-group row mt-5 text-center">
             <div class="offset-4 col-8">
-            <button name="submit" type="submit" class="btn btn-primary col-md-4">Submit</button>
+            <button name="submit" type="submit" class="btn btn-warning text-light col-md-4">Submit</button>
             </div>
         </div>
         </form>
-    <div class="row" style="margin-top: 10%; ">
+    <div class="row" style="margin-top: 10%; margin-bottom: 10%;">
 		<div class="col-md-12">
 			<table class="table table-bordered">
-				<tr class="text-center bg-primary text-light">
+				<tr class="text-center bg-warning text-light text-light">
                     <th>NIM</th>
                     <th>Nama</th>
                     <th>Email</th>
@@ -94,6 +116,7 @@
                     <th>Program Studi</th>
                     <th>ٍSkill Programing</th>
                     <th>ٍSkor</th>
+                    <th>ٍPredikat</th>
                 </tr>
                 <?php
                     if(isset($_POST['submit'])){
@@ -114,12 +137,48 @@
                 <td><?= $prodi; ?></td>
                 <td>
                     <?php foreach($skill_user as $skill){
-                        echo $skill . " , ";
-                    } ?>
+                        echo $skill . " <br> ";
+                    } 
+                    
+                    $skor = 0;
+                    // loop melalui setiap item
+                    foreach($skill_user as $skill) {
+                        // cek apakah checkbox terkait telah dicentang
+                        if($skill == 'HTML') {
+                            // tambahkan nilai item ke total
+                            $skor = $skor + 10;
+                        }elseif($skill == 'CSS') {
+                            $skor = $skor + 10;
+                        }elseif($skill == 'JavaScript') {
+                            $skor = $skor + 20;
+                        }elseif($skill == 'RWD Bootstrap') {
+                            $skor = $skor + 20;
+                        }elseif($skill == 'PHP') {
+                            $skor = $skor + 30;
+                        }elseif($skill == 'Python') {
+                            $skor = $skor + 30;
+                        }elseif($skill == 'Java') {
+                            $skor = $skor + 50;
+                        }else{
+                            $skor = $skor + 0;
+                        }
+                    }
+
+                    if($skor >= 100){
+                        $predikat = "Sangat Baik";
+                    }elseif($skor >= 60){
+                        $predikat = "Baik";
+                    }elseif($skor >= 40){
+                        $predikat = "Cukup";
+                    }elseif($skor > 0){
+                        $predikat = "Kurang";
+                    }else{
+                        $predikat = "Tidak Memadai";
+                    }
+                    ?>
                 </td>
-                <td>
-                    <?= number_format($skor, 0); ?>
-                </td>
+                <td><?= $skor; ?></td>
+                <td><?= $predikat; ?></td>
                 </tr>
                 <?php } ?>
 			</table>

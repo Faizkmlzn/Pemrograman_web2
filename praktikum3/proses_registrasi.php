@@ -13,5 +13,11 @@
         "JavaScript"=>20,
         "PHP"=>30,
         "Python"=>30
-    ]
+    ];
+
+    $skor = ($skills['HTML'] 
+                        + $skills['CSS'] 
+                        + $skills['JavaScript'] 
+                        + $skills['PHP'] 
+                        + $skills['Python']);
 ?>
